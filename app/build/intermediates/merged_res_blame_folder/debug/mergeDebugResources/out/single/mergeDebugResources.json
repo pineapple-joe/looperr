@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "com.looperr.app-debug-37:/drawable_ic_loop.xml.flat",
+        "source": "com.looperr.app-main-39:/drawable/ic_loop.xml"
+    },
+    {
+        "merged": "com.looperr.app-debug-37:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.looperr.app-main-39:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.looperr.app-debug-37:/drawable_ic_share.xml.flat",
+        "source": "com.looperr.app-main-39:/drawable/ic_share.xml"
+    },
+    {
+        "merged": "com.looperr.app-debug-37:/layout_activity_main.xml.flat",
+        "source": "com.looperr.app-main-39:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.looperr.app-debug-37:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.looperr.app-main-39:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.looperr.app-debug-37:/xml_backup_rules.xml.flat",
+        "source": "com.looperr.app-main-39:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.looperr.app-debug-37:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.looperr.app-main-39:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    }
+]

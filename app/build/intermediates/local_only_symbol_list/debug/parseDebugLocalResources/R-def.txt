@@ -1,0 +1,31 @@
+R_DEF: Internal format may change without notice
+local
+color background
+color black
+color spotify_green
+color surface
+color text_secondary
+color track_inactive
+color white
+drawable ic_launcher_foreground
+drawable ic_loop
+drawable ic_share
+id albumArt
+id artistName
+id currentTime
+id endTime
+id loginButton
+id loginContainer
+id loopButton
+id playerContainer
+id rangeSlider
+id startTime
+id trackName
+id waitingContainer
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style RoundedCorners
+style Theme.Looperr
+xml backup_rules
