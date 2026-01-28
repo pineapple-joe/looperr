@@ -71,6 +71,9 @@ class LoopController(private val repository: SpotifyRepository) {
         _state.value = _state.value.copy(isLooping = false)
         loopJob?.cancel()
         loopJob = null
+        scope.launch {
+            repository.pause()
+        }
     }
 
     fun clearTrack() {
