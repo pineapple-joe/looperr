@@ -34,6 +34,14 @@ class MainActivity : AppCompatActivity() {
     private var serviceBound = false
 
     private var currentTrack: Track? = null
+    private var savedStartPercent: Float = 0f
+    private var savedEndPercent: Float = 1f
+
+    companion object {
+        private const val KEY_TRACK = "key_track"
+        private const val KEY_START_PERCENT = "key_start_percent"
+        private const val KEY_END_PERCENT = "key_end_percent"
+    }
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -41,6 +49,13 @@ class MainActivity : AppCompatActivity() {
             loopService = binder.getService()
             serviceBound = true
             observeLoopState()
+
+            // Sync restored slider positions with loop controller
+            currentTrack?.let { track ->
+                val startMs = (track.durationMs * savedStartPercent).toLong()
+                val endMs = (track.durationMs * savedEndPercent).toLong()
+                loopService?.loopController?.setLoopPoints(startMs, endMs)
+            }
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
@@ -58,8 +73,32 @@ class MainActivity : AppCompatActivity() {
         auth = SpotifyAuth(this)
         repository = SpotifyRepository(this)
 
+        // Restore state after rotation
+        savedInstanceState?.let { state ->
+            @Suppress("DEPRECATION")
+            currentTrack = state.getParcelable(KEY_TRACK)
+            savedStartPercent = state.getFloat(KEY_START_PERCENT, 0f)
+            savedEndPercent = state.getFloat(KEY_END_PERCENT, 1f)
+
+            currentTrack?.let { track ->
+                displayTrack(track)
+                binding.rangeSlider.setRange(savedStartPercent, savedEndPercent)
+                val startMs = (track.durationMs * savedStartPercent).toLong()
+                val endMs = (track.durationMs * savedEndPercent).toLong()
+                binding.startTime.text = TimeUtils.formatTime(startMs)
+                binding.endTime.text = TimeUtils.formatTime(endMs)
+            }
+        }
+
         setupUI()
         handleIntent(intent)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(KEY_TRACK, currentTrack)
+        outState.putFloat(KEY_START_PERCENT, binding.rangeSlider.getStartPercent())
+        outState.putFloat(KEY_END_PERCENT, binding.rangeSlider.getEndPercent())
     }
 
     override fun onNewIntent(intent: Intent) {
