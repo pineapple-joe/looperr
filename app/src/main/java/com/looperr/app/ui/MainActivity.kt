@@ -94,6 +94,12 @@ class MainActivity : AppCompatActivity() {
             loopService?.loopController?.toggleLoop()
         }
 
+        binding.clearButton.setOnClickListener {
+            loopService?.loopController?.clearTrack()
+            currentTrack = null
+            updateUIState()
+        }
+
         binding.rangeSlider.listener = object : RangeSliderView.OnRangeChangeListener {
             override fun onRangeChanged(startPercent: Float, endPercent: Float) {
                 currentTrack?.let { track ->

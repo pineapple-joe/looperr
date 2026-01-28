@@ -73,6 +73,12 @@ class LoopController(private val repository: SpotifyRepository) {
         loopJob = null
     }
 
+    fun clearTrack() {
+        stopLoop()
+        trackUri = null
+        _state.value = LoopState()
+    }
+
     fun toggleLoop() {
         if (_state.value.isLooping) {
             stopLoop()
