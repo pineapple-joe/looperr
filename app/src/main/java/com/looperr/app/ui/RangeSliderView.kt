@@ -41,7 +41,7 @@ class RangeSliderView @JvmOverloads constructor(
     private val handlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = ContextCompat.getColor(context, R.color.white)
         style = Paint.Style.FILL
-        setShadowLayer(8f, 0f, 2f, 0x40000000)
+        setShadowLayer(4f, 0f, 1f, 0x40000000)
     }
 
     private val positionPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -52,9 +52,10 @@ class RangeSliderView @JvmOverloads constructor(
     private val trackRect = RectF()
     private val selectedRect = RectF()
 
-    private val trackHeight = 16f.dp
-    private val handleRadius = 14f.dp
-    private val positionIndicatorRadius = 6f.dp
+    private val trackHeight = 10f.dp
+    private val handleRadius = 8f.dp
+    private val touchTargetRadius = 20f.dp
+    private val positionIndicatorRadius = 4f.dp
 
     private var activeHandle: Handle? = null
 
@@ -104,8 +105,8 @@ class RangeSliderView @JvmOverloads constructor(
                 val distToEnd = kotlin.math.abs(event.x - endX)
 
                 activeHandle = when {
-                    distToStart < handleRadius * 2 && distToStart <= distToEnd -> Handle.START
-                    distToEnd < handleRadius * 2 -> Handle.END
+                    distToStart < touchTargetRadius && distToStart <= distToEnd -> Handle.START
+                    distToEnd < touchTargetRadius -> Handle.END
                     else -> null
                 }
                 return activeHandle != null
